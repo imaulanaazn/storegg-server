@@ -1,6 +1,4 @@
-MODE=
-SERVICE_NAME=
-MONGO_URL=
-MONGO_URL=
-
+MODE=dev
+SERVICE_NAME=storegg-app
+MONGO_URL=mongodb+srv://irham:Kelalen080403@cluster0.sbfpl4v.mongodb.net/storegg?retryWrites=true&w=majority
 SECRET=SECRET
