@@ -67,6 +67,9 @@ module.exports = {
     try {
       const { accountUser, name, nominal, voucher, payment, bank } = req.body
 
+      console.log(payment)
+      console.log(bank)
+
       const res_voucher = await Voucher.findOne({ _id: voucher })
         .select('name caegory _id thumbnail user')
         .populate('category')
@@ -84,7 +87,7 @@ module.exports = {
 
       const res_bank = await Bank.findOne({ _id: bank })
 
-      if (!res_bank) return res.status(404).json({ message: 'payment tidak ditemukan.' })
+      if (!res_bank) return res.status(404).json({ message: 'bank tidak ditemukan.' })
 
       let tax = (10 / 100) * res_nominal._doc.price;
       let value = res_nominal._doc.price - tax;
@@ -196,14 +199,16 @@ module.exports = {
   dashboard: async (req, res) => {
     try {
       const count = await Transaction.aggregate([
-        { $match: { player: req.player._id } },
+        { $match: {$and : [{ player: req.player._id }, {status: "success"}]} },
         {
           $group: {
             _id: '$category',
-            valeu: { $sum: '$value' }
+            value: { $sum: '$value' }
           }
         }
       ])
+
+      console.log(count);
 
       const category = await Category.find({})
 
@@ -246,11 +251,11 @@ module.exports = {
 
   editProfile: async (req, res, next) => {
     try {
-      const { name = "", phoneNumber = "" } = req.body
-
+      const { username = "", phoneNumber = "" } = req.body
+      console.log(username)
       const payload = {}
 
-      if (name.length) payload.name = name
+      if (username.length) payload.username = username
       if (phoneNumber.length) payload.phoneNumber = phoneNumber
 
       if (req.file) {
@@ -285,7 +290,7 @@ module.exports = {
           res.status(201).json({
             data: {
               id: player.id,
-              name: player.name,
+              username: player.name,
               phoneNumber: player.phoneNumber,
               avatar: player.avatar,
             }
