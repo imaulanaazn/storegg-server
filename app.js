@@ -1,12 +1,12 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+const cors = require('cors')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash');
-var cors = require('cors')
 
 
 
@@ -22,8 +22,8 @@ const playerRouter = require('./app/player/router');
 const authRouter = require('./app/auth/router');
 
 const app = express();
-const URL = `/api/v1`
 app.use(cors());
+const URL = `/api/v1`
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
