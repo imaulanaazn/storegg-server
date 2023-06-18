@@ -23,7 +23,10 @@ const authRouter = require('./app/auth/router');
 
 const app = express();
 const URL = `/api/v1`
-app.use(cors())
+const corsOptions = {
+  origin: 'https://storegg-app.netlify.app',
+}
+app.use(cors(corsOptions));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
