@@ -21,7 +21,6 @@ module.exports = {
       req.flash('alertMessage', `${err.message}`)
       req.flash('alertStatus', 'danger')
       res.redirect('/')
-
     }
   },
 
