@@ -21,9 +21,15 @@ const transactionRouter = require('./app/transaction/router');
 const playerRouter = require('./app/player/router');
 const authRouter = require('./app/auth/router');
 
+const corsOptions ={
+  origin:'*', 
+  credentials:true,
+  optionSuccessStatus:200,
+}
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 const URL = `/api/v1`
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
